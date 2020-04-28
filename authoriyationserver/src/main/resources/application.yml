@@ -1,0 +1,19 @@
+spring:
+    application:
+        name: authorization-server  
+    datasource: 
+        driverClassName: com.mysql.jdbc.Driver
+        url: "jdbc:mysql://localhost:3308/userservice?autoreconnect=true"
+        password: "root"
+        username: "root"
+        tomcat.testOnBorrow: true
+        tomcat.testWhileIdle: true
+        tomcat.timeBetweenEvictionRunsMillis: 60000
+        tomcat.minEvictableIdleTimeMillis: 30000
+        tomcat.validationQuery: SELECT 1
+        tomcat.max-active: 15
+        tomcat.max-idle: 10
+        tomcat.max-wait: 8000    security:      oauth2:        resourceserver:         jwt:          public-key-location: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxC1JL1BT0IfNVsWNMXZrgaayIkTYNa+Dn4ZcuQJc/UgjkS+Gcf8qr5OdDpgSbEtcTtl1NDsBkEAiB+3QAIngUyqjqRXFc+fw2trtgpBq8vRXGZQk8AQTUvhd2tR72A6eWEaiHQqkgkzlasrpW3AV5ssh9JU6C5L/b19pqwkkOmoeoQ2XD8OrerXenV+gx+3ZMwBcYI9x7der/6vGzriUiV4fLhuvgHcxsufC7gGmjenwLXnC7HzPBHnHy99Pcc6M+SaRcmTwSDJDrBhLDh+qhLq933r9G9GAKCMXBam91e6EGp0vMM4K1qKsLoUTiNSkyXQSscyTC6hMZOIp8jLvfwIDAQAB-----END PUBLIC KEY-----
+#-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAxC1JL1BT0IfNVsWNMXZrgaayIkTYNa+Dn4ZcuQJc/UgjkS+Gcf8qr5OdDpgSbEtcTtl1NDsBkEAiB+3QAIngUyqjqRXFc+fw2trtgpBq8vRXGZQk8AQTUvhd2tR72A6eWEaiHQqkgkzlasrpW3AV5ssh9JU6C5L/b19pqwkkOmoeoQ2XD8OrerXenV+gx+3ZMwBcYI9x7der/6vGzriUiV4fLhuvgHcxsufC7gGmjenwLXnC7HzPBHnHy99Pcc6M+SaRcmTwSDJDrBhLDh+qhLq933r9G9GAKCMXBam91e6EGp0vMM4K1qKsLoUTiNSkyXQSscyTC6hMZOIp8jLvfwIDAQABAoIBAQCzmX4Z6eGB1QJBgYTdFrwfq1wEEaEbrT7Eaj8zRZ2aaFPflHHypZgPvAWamdCsAmZU7bLmiWrKBFzjg23dQFz15uCEaSEnFt4jjzDISq0PFnEzQrR6ZFDIsgdC0ys6R0/iI3BBREAN5pZWKcRwaPI0JB5HC+NjO0XNUb2szyayrmAupOpCGT75YWdyhPRdI3sAiwM8pbHF4Ow0lYjiAZv1fLpSEDG2uJbSOs8BHU5Fai1FeZely6iBRN6LrFUVgruqDSzVo8VsaTKxkwwr6lYo0VgivWWExaoadEv3JtME76SpmEC0nQl3uoydSdIJhzwK8pAxJ/IoEsnOXluerRGBAoGBAObTysjrVsGf/UxvHP4dB0HHMJTzTBhyziVbksaGUlog8kRTKUq5KqlfLgHSsoC1e0/JiGOkLxVBFQR6ibCAefh58vrAGOt9rG/asmpGXRXZFFoyMW53f8HmwPhY+cAMcNyFxVt12Ooy2sQ+yCUosHWV3ntrTRUCNjVBrFuGS6g/AoGBANmSILkTzNInfIwa7iVewvAikrFsuLRRJ/12leHb0TmscWcJGitNONbXDq/fp5MHNwpyJ+wCtjmtFMvqyceSPQbkr8J+zanMQbVgMaiVUQi0KyHNaMnigq/9vsh1fVTm7sn0B7PuTfcDtKLNn6N7+fQ8AjEMwFuzzuamUEOxUOjBAoGBANC+aZ2njg6OY+Ayf9KiZ8SpoRqip4dYk2qfVK3qHSFauBzn4+iqaZU/+Pg3Faxl8r0l8QzDFr0u3RXuxwPyO9tkVUNEY4TbYwzIhx6qwVWXudsTlzZiJQwyZQJyXHG8DnivFNpwSZkKImLkr9VC5cmAnfGZCN1d4a3p1TfzzAm7AoGAQFTW3CKgo1sNlpe35tDYLwzp9xBApQCCJI3Vz4yhlr4IYgDs/fS9Y7j/HL2y3OR7P9l1OHGs0+z7gzgPJbV12f3wgj/gK967ZxfkVwafiUVMo5gK7fbN0Z/js34Z6urFnG1NgcRqxSkRVjoag8p6o97CfyJYFkVaXhS7EujxFYECgYEAtIar7P8ydhucFi3qW6Eb9SYsJ63n2669pZnglOABerMtXZtLrX1sTQR/AHcQXpBD3jftJwCit0XzYY6vahDsRVoRkIkTHuY8TNu/bpb+N0IPWXYeoVgTWzpoqBRAtaGAOTtOq4v/oAxsPTnK7CKkBH4r6SN8aAE2C7xhNcg4OF4=-----END RSA PRIVATE KEY-----
+security:  oauth2:    client:      client-id: user
+      client-secret: user@user

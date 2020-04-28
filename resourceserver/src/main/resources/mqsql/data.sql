@@ -3,6 +3,8 @@ use userservice;
 
 create table permission (id int primary key auto_increment, permission_name varchar(50) unique key not null);
 
+create table invoices (id int primary key auto_increment, user_id int, foreign key(user_id) references users(id), invoice_number int(15), date_of_invoice varchar(50), description varchar(200), amount varchar(100), status varchar(50));
+
 create table role (id int primary key auto_increment, role_name varchar(50) unique key not null);
 
 create table role_permission(id int primary key auto_increment, role_id int, foreign key(role_id) 

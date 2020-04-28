@@ -1,25 +1,20 @@
-#spring:
-#    application:
-#        name: resource-server
-#    datasource: 
-#        driverClassName: com.mysql.jdbc.Driver
-#        url: "jdbc:mysql://localhost:3306/userservice?autoreconnect=true"
-#        password: "root"
-#        username: "root"
-#        testOnBorrow: true
-#        testWhileIdle: true
-#        timeBetweenEvictionRunsMillis: 60000
-#        minEvictableIdleTimeMillis: 30000
-#        validationQuery: SELECT 1
-#        max-active: 15
-#        max-idle: 10
-#        max-wait: 8000
-#server:
-#  port: 8000
-#  
-#security:
-#    oauth2: 
-#        resource: 
-#            filter-order:3 
-#            jwt:
-#                key-value:----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxC1JL1BT0IfNVsWNMXZrgaayIkTYNa+Dn4ZcuQJc/UgjkS+Gcf8qr5OdDpgSbEtcTtl1NDsBkEAiB+3QAIngUyqjqRXFc+fw2trtgpBq8vRXGZQk8AQTUvhd2tR72A6eWEaiHQqkgkzlasrpW3AV5ssh9JU6C5L/b19pqwkkOmoeoQ2XD8OrerXenV+gx+3ZMwBcYI9x7der/6vGzriUiV4fLhuvgHcxsufC7gGmjenwLXnC7HzPBHnHy99Pcc6M+SaRcmTwSDJDrBhLDh+qhLq933r9G9GAKCMXBam91e6EGp0vMM4K1qKsLoUTiNSkyXQSscyTC6hMZOIp8jLvfwIDAQAB-----END PUBLIC KEY-----
+spring:
+    application:
+        name: resource-server
+    datasource: 
+        driverClassName: com.mysql.jdbc.Driver
+        url: "jdbc:mysql://localhost:3306/userservice?autoreconnect=true"
+        password: "root"
+        username: "root"
+        tomcat.testOnBorrow: true
+        tomcat.testWhileIdle: true
+        tomcat.timeBetweenEvictionRunsMillis: 60000
+        tomcat.minEvictableIdleTimeMillis: 30000
+        tomcat.validationQuery: SELECT 1
+        tomcat.max-active: 15
+        tomcat.max-idle: 10
+        tomcat.max-wait: 8000
+    security:      oauth2:        resourceserver:          jwt:            public-key-location: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxC1JL1BT0IfNVsWNMXZrgaayIkTYNa+Dn4ZcuQJc/UgjkS+Gcf8qr5OdDpgSbEtcTtl1NDsBkEAiB+3QAIngUyqjqRXFc+fw2trtgpBq8vRXGZQk8AQTUvhd2tR72A6eWEaiHQqkgkzlasrpW3AV5ssh9JU6C5L/b19pqwkkOmoeoQ2XD8OrerXenV+gx+3ZMwBcYI9x7der/6vGzriUiV4fLhuvgHcxsufC7gGmjenwLXnC7HzPBHnHy99Pcc6M+SaRcmTwSDJDrBhLDh+qhLq933r9G9GAKCMXBam91e6EGp0vMM4K1qKsLoUTiNSkyXQSscyTC6hMZOIp8jLvfwIDAQAB-----END PUBLIC KEY-----
+server:
+  port: 8000
+      

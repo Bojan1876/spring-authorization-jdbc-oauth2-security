@@ -3,6 +3,8 @@ package com.example.project.resourceserver.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,16 +15,18 @@ import lombok.Setter;
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@Table("users")
 public class UserModel {
 	
-	private String email_id;
+	@Id
+	private int id;
+	private String email;
 	private String password;
 	private Collection<GrantedAuthority> grantedAuthoritiesList = new ArrayList<>();
-	private String id;
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private String mobile;
 	private String country;
-	private String user_type;
+	private String userType;
 
 }

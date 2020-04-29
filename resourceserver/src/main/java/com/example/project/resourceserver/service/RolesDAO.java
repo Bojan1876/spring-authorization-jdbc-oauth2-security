@@ -22,8 +22,8 @@ public class RolesDAO {
 		List<UserRole> roleList = new ArrayList<>();
 		rows.stream().map((row)->{
 			UserRole user = new UserRole();
-			user.setId(String.valueOf(row.get("id")));
-			user.setRole_name((String) row.get("role_name"));
+			user.setId((Integer) row.get("id"));
+			user.setRoleName((String) row.get("role_name"));
 			return user;
 		}).forEach((ss3)->{
 			roleList.add(ss3);
@@ -36,11 +36,11 @@ public class RolesDAO {
 	}
 
 	public void updateRole(String role_id, UserRole role) {
-		jdbcTemplate.update("update role set role_name=? where id=?", new Object[] {role.getRole_name(), role_id});
+		jdbcTemplate.update("update role set role_name=? where id=?", new Object[] {role.getRoleName(), role_id});
 	}
 
 	public void createRole(UserRole role) {
-		jdbcTemplate.update("insert into role (role_name) values (?)", new Object[] {role.getRole_name()});
+		jdbcTemplate.update("insert into role (role_name) values (?)", new Object[] {role.getRoleName()});
 	}
 
 }

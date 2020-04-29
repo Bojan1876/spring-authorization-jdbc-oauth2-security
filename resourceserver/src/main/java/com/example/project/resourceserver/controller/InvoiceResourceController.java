@@ -66,7 +66,7 @@ public class InvoiceResourceController {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && invoice.getUser_model().getUser_type().equalsIgnoreCase("super_admin")) {
+		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && invoice.getUserModel().getUserType().equalsIgnoreCase("super_admin")) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		invoiceResourceDAO.createInvoice(invoice);

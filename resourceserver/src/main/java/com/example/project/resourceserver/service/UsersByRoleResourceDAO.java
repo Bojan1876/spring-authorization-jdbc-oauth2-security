@@ -26,12 +26,12 @@ public class UsersByRoleResourceDAO {
 		rows.stream().map((row) ->{
 			UserModel user = new UserModel();
 			user.setCountry((String) row.get("country"));
-			user.setEmail_id((String) row.get("email_id"));
-			user.setFirst_name((String) row.get("first_name"));
-			user.setId(String.valueOf(row.get("id")));
-			user.setLast_name((String) row.get("last_name"));
+			user.setEmail((String) row.get("email_id"));
+			user.setFirstName((String) row.get("first_name"));
+			user.setId((Integer) row.get("id"));
+			user.setLastName((String) row.get("last_name"));
 			user.setMobile((String) row.get("mobile"));
-			user.setUser_type((String) row.get("user_type"));
+			user.setUserType((String) row.get("user_type"));
 			return user;
 		}).forEach((ss3) ->{
 			usersList.add(ss3);

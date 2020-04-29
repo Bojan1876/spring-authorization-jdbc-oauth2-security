@@ -24,10 +24,10 @@ public class InvoiceResourceDAO {
 		rows.stream().map((row)->{
 			Invoice invoice = new Invoice();
 			invoice.setAmount((String) row.get("amount"));
-			invoice.setDate_of_invoice((String) row.get("date_of_invoice"));
+			invoice.setDateOfInvoice((String) row.get("date_of_invoice"));
 			invoice.setDescription((String) row.get("description"));
 			invoice.setId((Integer)row.get("id"));
-			invoice.setInvoice_number(String.valueOf(row.get("invoice_number")));
+			invoice.setInvoiceNumber(String.valueOf(row.get("invoice_number")));
 			invoice.setStatus((Status) row.get("status"));
 			return invoice;
 		}).forEach((ss3)->{
@@ -42,13 +42,13 @@ public class InvoiceResourceDAO {
 	
 	public void updateUser(String invoice_id, Invoice invoice) {
 		jdbcTemplate.update("update invoices set amount=?, date_of_invoice=?, description=?, invoice_number=?, status=? where id=?", 
-				new Object[] {invoice.getAmount(), invoice.getDate_of_invoice(), invoice.getDescription(), invoice.getInvoice_number(), invoice.getStatus(), invoice_id});
+				new Object[] {invoice.getAmount(), invoice.getDateOfInvoice(), invoice.getDescription(), invoice.getInvoiceNumber(), invoice.getStatus(), invoice_id});
 		
 	}
 	
 	public void createInvoice(Invoice invoice) {
 		jdbcTemplate.update("insert into invoices (amount, date_of_invoice, description, invoice_number, status) values "
-				+ "(?,?,?,?,?)", new Object[] {invoice.getAmount(), invoice.getDate_of_invoice(), invoice.getDescription(), invoice.getInvoice_number(), invoice.getStatus()});
+				+ "(?,?,?,?,?)", new Object[] {invoice.getAmount(), invoice.getDateOfInvoice(), invoice.getDescription(), invoice.getInvoiceNumber(), invoice.getStatus()});
 	}
 
 }

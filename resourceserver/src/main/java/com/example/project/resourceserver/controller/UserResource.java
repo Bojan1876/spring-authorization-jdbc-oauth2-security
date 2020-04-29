@@ -61,7 +61,7 @@ public class UserResource {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userModel.getUser_type().equalsIgnoreCase("super_admin")) {
+		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userModel.getUserType().equalsIgnoreCase("super_admin")) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		userResourceDAO.createUser(userModel);

@@ -28,12 +28,12 @@ public class UserResourceDAO {
 		rows3.stream().map((row) ->{
 			UserModel user = new UserModel();
 			user.setCountry((String) row.get("country"));
-			user.setEmail_id((String) row.get("email_id"));
-			user.setFirst_name((String) row.get("first_name"));
-			user.setId(String.valueOf(row.get("id")));
-			user.setLast_name((String) row.get("last_name"));
+			user.setEmail((String) row.get("email_id"));
+			user.setFirstName((String) row.get("first_name"));
+			user.setId((Integer) row.get("id"));
+			user.setLastName((String) row.get("last_name"));
 			user.setMobile((String) row.get("mobile"));
-			user.setUser_type((String) row.get("user_type"));
+			user.setUserType((String) row.get("user_type"));
 			return user;
 		}).forEach((ss3)->{
 			usersList.add(ss3);
@@ -47,7 +47,7 @@ public class UserResourceDAO {
 	
 	public void updateUser(String user_id, UserModel userModel) {
 		jdbcTemplate.update("update users set country=?, first_name=?, last_name=?, mobile=?, where id=?", 
-				new Object[] {userModel.getCountry(), userModel.getFirst_name(), userModel.getLast_name(), userModel.getMobile(), user_id});
+				new Object[] {userModel.getCountry(), userModel.getFirstName(), userModel.getLastName(), userModel.getMobile(), user_id});
 		
 	}
 	
@@ -55,9 +55,9 @@ public class UserResourceDAO {
 		jdbcTemplate.update(
 				"insert into users (country, first_name, last_name, mobile, email_id, password, user_type) values "
 				+ "(?,?,?,?,?,?,?)",
-				new Object[] {userModel.getCountry(), userModel.getFirst_name(), userModel.getLast_name(),
-						userModel.getMobile(), userModel.getEmail_id(), 
-						passwordEncoder.encode(userModel.getPassword()), userModel.getUser_type()});
+				new Object[] {userModel.getCountry(), userModel.getFirstName(), userModel.getLastName(),
+						userModel.getMobile(), userModel.getEmail(), 
+						passwordEncoder.encode(userModel.getPassword()), userModel.getUserType()});
 	}
 	
 	public boolean isSupperAdmin(String id) {

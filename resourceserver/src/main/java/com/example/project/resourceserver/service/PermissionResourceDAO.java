@@ -22,8 +22,8 @@ public class PermissionResourceDAO {
 		List<Permission> permissionList = new ArrayList<>();
 		rows.stream().map((row)->{
 			Permission permission = new Permission();
-			permission.setId(String.valueOf(row.get("id")));
-			permission.setPermission_name((String) row.get("permission_name"));
+			permission.setId((Integer) row.get("id"));
+			permission.setPermissionName((String) row.get("permission_name"));
 			return permission;
 		}).forEach((ss3)->{
 			permissionList.add(ss3);

@@ -24,17 +24,17 @@ public class JwtConverter extends DefaultAccessTokenConverter implements JwtAcce
 		OAuth2Authentication auth = super.extractAuthentication(map);
 		AccessTokenMapper details = new AccessTokenMapper();
 		if (map.get("id") != null)
-			details.setId((String) map.get("id"));
+			details.setId((Integer) map.get("id"));
 		if (map.get("first_name") != null)
-			details.setFirst_name((String) map.get("first_name"));
+			details.setFirstName((String) map.get("first_name"));
 		if (map.get("last_name") != null)
-			details.setLast_name((String) map.get("last_name"));
+			details.setLastName((String) map.get("last_name"));
 		if (map.get("country") != null)
 			details.setCountry((String) map.get("country"));
 		if (map.get("mobile") != null)
 			details.setMobile((String) map.get("mobile"));
 		if (map.get("user_type") != null)
-			details.setUser_type((String) map.get("user_type"));
+			details.setUserType((String) map.get("user_type"));
 		if (auth.getAuthorities() != null && !auth.getAuthorities().isEmpty()) {
 			List<String> authorities = new ArrayList<>();
 			for (GrantedAuthority gn : auth.getAuthorities()) {

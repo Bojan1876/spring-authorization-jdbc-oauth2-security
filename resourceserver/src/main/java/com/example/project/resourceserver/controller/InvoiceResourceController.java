@@ -1,15 +1,20 @@
 package com.example.project.resourceserver.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.resourceserver.converter.AccessTokenMapper;
@@ -17,7 +22,7 @@ import com.example.project.resourceserver.model.Invoice;
 import com.example.project.resourceserver.service.InvoiceResourceDAO;
 import com.example.project.resourceserver.service.UserResourceDAO;
 
-@RestController
+@Controller
 public class InvoiceResourceController {
 	
 	@Autowired
@@ -26,19 +31,22 @@ public class InvoiceResourceController {
 	@Autowired
 	UserResourceDAO userResourceDAO;
 	
-	@PreAuthorize("hashAnyRole('view_invoices', 'SUPERADMIN')")
+	//@PreAuthorize("hashAnyRole('view_invoices', 'SUPERADMIN')")
 	@RequestMapping(value = "/invoices", method = RequestMethod.GET)
-	public ResponseEntity<Object> getListOfInvoice(){
-		return new ResponseEntity<>(invoiceResourceDAO.getListOfInvoice(), HttpStatus.OK);
+	public String getListOfInvoice(@RequestParam("id") Long id, Model model){
+		List<Invoice> listInvoice = invoiceResourceDAO.getListOfInvoice(id);
+		model.addAttribute("listInvoice", listInvoice);
+		return "index";
+		//return new ResponseEntity<>(invoiceResourceDAO.getListOfInvoice(), HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hashAnyRole('delete_invoices', 'SUPERADMIN')")
 	@RequestMapping(value = "invoices/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteUser(@PathVariable("id") String invoice_id){
+	public ResponseEntity<Object> deleteUser(@PathVariable("id") Long invoice_id){
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
-		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(invoice_id)) {
+		String stringId = String.valueOf(invoice_id);
+		if(accessTokenMapper.getUserType().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(stringId)) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		
@@ -53,10 +61,10 @@ public class InvoiceResourceController {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(invoice_id)) {
+		if(accessTokenMapper.getUserType().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(invoice_id)) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
-		invoiceResourceDAO.updateUser(invoice_id, invoice);
+		invoiceResourceDAO.updateInvoice(invoice_id, invoice);
 		return new ResponseEntity<>("Invoice updated successfully", HttpStatus.OK);
 	}
 	
@@ -66,7 +74,7 @@ public class InvoiceResourceController {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && invoice.getUserModel().getUserType().equalsIgnoreCase("super_admin")) {
+		if(accessTokenMapper.getUserType().equalsIgnoreCase("admin") && invoice.getUserModel().getUserType().equalsIgnoreCase("super_admin")) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		invoiceResourceDAO.createInvoice(invoice);

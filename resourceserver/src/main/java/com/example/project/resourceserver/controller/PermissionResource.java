@@ -26,8 +26,8 @@ public class PermissionResource {
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) 
 				((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		System.out.println("accessTokenMapper.getFirst_name()::" + accessTokenMapper.getFirst_name());
-		System.out.println("accessTokenMapper.getLast_name()::" + accessTokenMapper.getLast_name());
+		System.out.println("accessTokenMapper.getFirst_name()::" + accessTokenMapper.getFirstName());
+		System.out.println("accessTokenMapper.getLast_name()::" + accessTokenMapper.getLastName());
 		
 		return new ResponseEntity<Object>(permissionResourceDAO.getListOfPermissions(), HttpStatus.OK);
 	}

@@ -34,7 +34,7 @@ public class UserResource {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(user_id)) {
+		if(accessTokenMapper.getUserType().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(user_id)) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		
@@ -48,7 +48,7 @@ public class UserResource {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(user_id)) {
+		if(accessTokenMapper.getUserType().equalsIgnoreCase("admin") && userResourceDAO.isSupperAdmin(user_id)) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		userResourceDAO.updateUser(user_id, userModel);
@@ -61,7 +61,7 @@ public class UserResource {
 		
 		AccessTokenMapper accessTokenMapper = (AccessTokenMapper) ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getDecodedDetails();
 		
-		if(accessTokenMapper.getUser_type().equalsIgnoreCase("admin") && userModel.getUserType().equalsIgnoreCase("super_admin")) {
+		if(accessTokenMapper.getUserType().equalsIgnoreCase("admin") && userModel.getUserType().equalsIgnoreCase("super_admin")) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		userResourceDAO.createUser(userModel);

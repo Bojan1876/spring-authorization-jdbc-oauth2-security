@@ -10,12 +10,12 @@ import lombok.Setter;
 @Getter
 public class AccessTokenMapper {
 
-	private String id;
+	private int id;
 	private List<String> authorities = new ArrayList<String>();
-	private String first_name;
-	private String last_name;
-	private String email_id;
-	private String user_type;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String userType;
 	private String mobile;
 	private String country;
 }

@@ -17,14 +17,7 @@ public class Invoice {
 	private String dateOfInvoice;
 	private String description;
 	private String amount;
-	private Status status;
+	private String status;
 	private UserModel userModel;
-
-	@Override
-	public String toString() {
-		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", dateOfInvoice=" + dateOfInvoice
-				+ ", description=" + description + ", amount=" + amount + ", status=" + status + ", userModel="
-				+ userModel + "]";
-	}
 
 }

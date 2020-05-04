@@ -1,27 +1,78 @@
 package com.example.project.resourceserver.service;
 
-import org.springframework.data.jdbc.repository.query.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.project.resourceserver.converters.InvoiceDTOToInvoice;
+import com.example.project.resourceserver.converters.InvoiceToInvoiceDTO;
+import com.example.project.resourceserver.exception.NotFoundException;
 import com.example.project.resourceserver.model.Invoice;
+import com.example.project.resourceserver.modelDTO.InvoiceDTO;
+import com.example.project.resourceserver.repository.InvoiceRepository;
 
-@Repository
-public interface InvoiceService extends CrudRepository<Invoice, Long>{
-	/*
-	 * @Query("SELECT * FROM  invoices") String getInvoice();
-	 * 
-	 * //@
-	 * Query("INSERT INTO invoices (amount, date_of_invoice, description, invoice_number, status) VALUES (?,?,?,?,?"
-	 * ) //Invoice saveInvoice(Invoice invoice);
-	 * 
-	 * @Query("SELECT * FROM invoices WHERE id=:id") Invoice getListOfInvoice(int
-	 * id);
-	 * 
-	 * @Query("UPDATE invoices SET amount=:amount, date_of_invoice=:date_of_invoice, description=:description, invoice_number=:invoice_number, status=:status where id=:id"
-	 * ) String updateInvoice();
-	 * 
-	 * @Query("DELET FROM invoices WHERE id=:id") String deleteById(String id);
-	 */
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class InvoiceService {
+
+	private final InvoiceRepository invoiceRepository;
+	private final InvoiceDTOToInvoice invoiceDTOToInvoice;
+	private final InvoiceToInvoiceDTO invoiceToInvoiceDTO;
+
+	public InvoiceService(InvoiceRepository invoiceRepository, InvoiceDTOToInvoice invoiceDTOToInvoice,
+			InvoiceToInvoiceDTO invoiceToInvoiceDTO) {
+		this.invoiceRepository = invoiceRepository;
+		this.invoiceDTOToInvoice = invoiceDTOToInvoice;
+		this.invoiceToInvoiceDTO = invoiceToInvoiceDTO;
+	}
+
+	public List<Invoice> getListOfInvoice() {
+		log.debug("I am in service");
+		List<Invoice> invoiceList = new ArrayList<>();
+		invoiceRepository.findAll().iterator().forEachRemaining(invoiceList::add);
+
+		return invoiceList;
+	}
+
+	public Invoice findById(Long id) {
+		Optional<Invoice> invoiceOptional = invoiceRepository.findById(id);
+		if (!invoiceOptional.isPresent()) {
+			throw new NotFoundException("Invoice Not Found! For ID value: " + id.toString());
+		}
+		return invoiceOptional.get();
+	}
+
+	@Transactional
+	public InvoiceDTO createInvoice(InvoiceDTO invoiceDTO) {
+		Invoice invoice = invoiceDTOToInvoice.convert(invoiceDTO);
+		Invoice saveInvoice = invoiceRepository.save(invoice);
+		log.debug("Saved Invoice: " + saveInvoice.getId());
+		
+		return invoiceToInvoiceDTO.convert(saveInvoice);
+	}
+
+	@Transactional
+	public InvoiceDTO updateInvoice(Long id, String status) {
+		Optional<Invoice> invoice = invoiceRepository.findById(id);
+		Invoice in = invoice.get();
+		in.setStatus(status);
+		
+		InvoiceDTO inDTO = invoiceToInvoiceDTO.convert(in);
+		return inDTO;
+	}
+
+	@Transactional
+	public void deleteInvoice(Long id) {
+		Optional<Invoice> invoice = invoiceRepository.findById(id);
+		if(invoice.get().getStatus() == "approved") {
+			throw new NotFoundException("Cannot delete already approved Invoice. For ID value: " + id.toString());
+		}
+		invoiceRepository.deleteById(id);
+	}
+
 }

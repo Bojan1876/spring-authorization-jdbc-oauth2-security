@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.resourceserver.converter.AccessTokenMapper;
 import com.example.project.resourceserver.model.Invoice;
@@ -31,12 +29,12 @@ public class InvoiceResourceController {
 	@Autowired
 	UserResourceDAO userResourceDAO;
 	
-	//@PreAuthorize("hashAnyRole('view_invoices', 'SUPERADMIN')")
+	@PreAuthorize("hashAnyRole('view_invoices', 'SUPERADMIN')")
 	@RequestMapping(value = "/invoices", method = RequestMethod.GET)
-	public String getListOfInvoice(@RequestParam("id") Long id, Model model){
-		List<Invoice> listInvoice = invoiceResourceDAO.getListOfInvoice(id);
+	public List<Invoice> getListOfInvoice(Model model){
+		List<Invoice> listInvoice = invoiceResourceDAO.getListOfInvoice();
 		model.addAttribute("listInvoice", listInvoice);
-		return "index";
+		return listInvoice;
 		//return new ResponseEntity<>(invoiceResourceDAO.getListOfInvoice(), HttpStatus.OK);
 	}
 	

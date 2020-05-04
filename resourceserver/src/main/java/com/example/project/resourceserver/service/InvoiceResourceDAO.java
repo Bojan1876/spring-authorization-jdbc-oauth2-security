@@ -1,17 +1,12 @@
 package com.example.project.resourceserver.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.project.resourceserver.model.Invoice;
-import com.example.project.resourceserver.model.Status;
 import com.example.project.resourceserver.repository.InvoiceRepository;
 
 @Repository
@@ -23,7 +18,7 @@ public class InvoiceResourceDAO {
 	@Autowired
 	InvoiceRepository invoiceRepository;
 
-	public List<Invoice> getListOfInvoice(Long id) {
+	public List<Invoice> getListOfInvoice() {
 		
 		/*
 		 * Collection<Map<String, Object>> rows =
@@ -37,11 +32,8 @@ public class InvoiceResourceDAO {
 		 * invoice.setStatus((Status) row.get("status")); return invoice;
 		 * }).forEach((ss3) -> { invoiceList.add(ss3); });
 		 */
-		Optional<Invoice> listInvoice = invoiceRepository.findById(id);
-		System.out.println(listInvoice);
 		
-		return null;
-		//return invoiceList;
+		return (List<Invoice>) invoiceRepository.findAll();
 	}
 	
 	public void deleteInvoice(Long id) {

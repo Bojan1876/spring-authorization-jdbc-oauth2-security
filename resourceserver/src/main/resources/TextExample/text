@@ -1,0 +1,17 @@
+Zdravo 
+evo malog projekta
+sa detaljima
+dva tipa usera (normal user and super user)
+normal user moze da create invoice i da ga menja ali ne moze da ga obrise 
+super user moze da approved invoice
+i moze da ga obrise
+jednom kada je approved
+invoice ne moze da se menja ili brise
+invoice structure InvoiceNumber DateOfInvoice Description Amount
+i status
+pending or approved
+database MySQL
+tri tabele da se naprave po ovim strukturama (user, userrole, invoice)
+REST API sa svim detaljima put, get, delete i sve drugo ...
+Koristiti JWT autorizaciju 
+i da se to sve zapakuje na kraju u microservice(docker)

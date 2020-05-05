@@ -1,12 +1,10 @@
 package com.example.project.resourceserver.modelDTO;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.project.resourceserver.model.InvoiceStatus;
 
-@Getter
-@Setter
-@NoArgsConstructor
+import lombok.Data;
+
+@Data
 public class InvoiceDTO {
 
 	private Long id;
@@ -14,5 +12,5 @@ public class InvoiceDTO {
 	private String dateOfInvoice;
 	private String description;
 	private String amount;
-	private String status;
+	private InvoiceStatus status;
 }

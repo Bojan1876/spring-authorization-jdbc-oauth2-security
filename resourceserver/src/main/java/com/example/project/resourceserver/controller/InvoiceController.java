@@ -27,22 +27,22 @@ public class InvoiceController {
 		this.invoiceService = invoiceService;
 	}
 
-	@PreAuthorize("hashAnyRole('view_invoices', 'SUPERADMIN')")
+	@PreAuthorize("hashAnyRole('SUPERADMIN')")
 	@RequestMapping(value = "/invoices", method = RequestMethod.GET)
 	public List<Invoice> getListOfInvoice(){
 		List<Invoice> listInvoice = invoiceService.getListOfInvoice();
 		return listInvoice;
 	}
 	
-	@PreAuthorize("hashAnyRole('edit_invoices', 'SUPERADMIN')")
+	@PreAuthorize("hashAnyRole('SUPERADMIN', 'USER')")
 	@RequestMapping(value = "invoices/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<InvoiceDTO> updateInvoice(@PathVariable("id") Long id, String status){
+	public ResponseEntity<InvoiceDTO> updateInvoice(@RequestBody InvoiceDTO invoiceDTO){
 		
-		InvoiceDTO invoiceDTO = invoiceService.updateInvoice(id, status);
-		return new ResponseEntity<InvoiceDTO>(invoiceDTO, HttpStatus.OK);
+		InvoiceDTO invoice = invoiceService.updateInvoice(invoiceDTO);
+		return new ResponseEntity<InvoiceDTO>(invoice, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hashAnyRole('create_invoices', 'SUPERADMIN')")
+	@PreAuthorize("hashAnyRole('SUPERADMIN', 'USER')")
 	@RequestMapping(value = "/invoices", method = RequestMethod.POST)
 	public ResponseEntity<InvoiceDTO> createInvoice(@RequestBody InvoiceDTO invoiceDTO){
 		
@@ -50,13 +50,19 @@ public class InvoiceController {
 		return new ResponseEntity<InvoiceDTO>(invoice, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hashAnyRole('delete_invoices', 'SUPERADMIN')")
-	@RequestMapping(value = "invoices/{id}", method = RequestMethod.DELETE)
+	@PreAuthorize("hashAnyRole('SUPERADMIN')")
+	@RequestMapping(value = "/invoices/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUser(@PathVariable("id") Long invoice_id){
+	public void deleteInvoice(@PathVariable("id") Long invoice_id){
 		
 		invoiceService.deleteInvoice(invoice_id);
 		
+	}
+	
+	@PreAuthorize("hashAnyRole('SUPERADMIN')")
+	@RequestMapping(value = "/invoice/{id}")
+	public void approveInvoice(@RequestBody Long id) {
+		invoiceService.approveInvoice(id);
 	}
 
 }

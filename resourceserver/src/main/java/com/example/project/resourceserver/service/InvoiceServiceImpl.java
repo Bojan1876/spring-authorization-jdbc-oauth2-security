@@ -60,12 +60,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Transactional
 	public InvoiceDTO updateInvoice(InvoiceDTO invoiceDTO) {
 		Invoice invoice = invoiceDTOToInvoice.convert(invoiceDTO);
-		Invoice updateInvoice = invoiceRepository.save(invoice);
 		
 		if (invoice.getStatus().equals("APPROVED")) {
 			throw new NotFoundException("Cannot update already approved Invoice. For ID value: " + invoiceDTO.toString());
 		}
-
+		
+		Invoice updateInvoice = invoiceRepository.save(invoice);
 		
 		return invoiceToInvoiceDTO.convert(updateInvoice);
 	}
